@@ -53,6 +53,12 @@ export function useMarketSocket(): MarketSocketState {
 
   useEffect(() => {
     const connect = () => {
+      // 静态部署（如 GitHub Pages / CloudStudio）无后端 WS 服务，跳过连接
+      if (!API_BASE) {
+        setStatus("error");
+        setError("静态演示·无实时行情");
+        return;
+      }
       // 后端 WebSocket 地址需指向 API_BASE（后端 8000），而非前端 3000。
       let host = window.location.host;
       try {

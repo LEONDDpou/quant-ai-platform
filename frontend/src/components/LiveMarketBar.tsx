@@ -1,6 +1,7 @@
 "use client";
 
 import { useMarketSocket } from "@/hooks/useMarketSocket";
+import { API_BASE } from "@/lib/config";
 
 /**
  * 实时行情条：通过 WebSocket 订阅后端 /ws/paper/market 推送，
@@ -17,6 +18,15 @@ export function LiveMarketBar() {
 
   // 异常态：友好提示 + 重试
   if (status === "error") {
+    // 无后端（GitHub Pages / CloudStudio 静态部署）：静默降级，不显示告警式重试按钮
+    if (!API_BASE) {
+      return (
+        <div className="flex items-center gap-2 text-xs text-slate-500">
+          <span className="inline-block w-2 h-2 rounded-full bg-slate-600" />
+          <span>静态演示·无实时行情</span>
+        </div>
+      );
+    }
     return (
       <div className="flex items-center gap-2 text-xs">
         <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
