@@ -3,6 +3,7 @@ import "./globals.css";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { TopBar } from "@/components/layout/TopBar";
 import { ToastProvider } from "@/components/ui/Toast";
+import { StaticModeBanner } from "@/components/StaticModeBanner";
 
 export const metadata: Metadata = {
   title: "AI A股量化智能交易平台",
@@ -31,6 +32,7 @@ export default function RootLayout({
             <Sidebar />
             <div className="flex-1 flex flex-col min-w-0">
               <TopBar />
+              <StaticModeBanner />
               <main className="flex-1 p-6 overflow-auto">{children}</main>
             </div>
           </div>

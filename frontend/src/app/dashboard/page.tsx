@@ -14,6 +14,7 @@ const ReactECharts = dynamic(() => import("echarts-for-react"), {
   loading: () => <div className="h-full w-full" />,
 });
 import { cn } from "@/lib/utils";
+import { API_BASE } from "@/lib/config";
 import { fetchDashboardV2, type DashboardV2Data, type KlineBar } from "@/lib/api";
 import { LiveMarketBar } from "@/components/LiveMarketBar";
 
@@ -527,6 +528,13 @@ export default function DashboardPage() {
   const [lastUpdate, setLastUpdate] = useState("");
 
   const load = useCallback(() => {
+    // 静态部署（GitHub Pages）无后端，不尝试 fetch，直接显示温和提示
+    if (!API_BASE) {
+      setLoading(false);
+      setError("");
+      setData(null);
+      return;
+    }
     setLoading(true);
     fetchDashboardV2()
       .then((d) => { setData(d); setError(""); setLastUpdate(new Date().toLocaleTimeString("zh-CN")); })
@@ -558,6 +566,24 @@ export default function DashboardPage() {
       </div>
     </div>
   );
+
+  // 静态部署（无后端）：温和提示，不报错
+  if (!data && !loading && !API_BASE) {
+    return (
+      <div className="flex items-center justify-center h-[70vh]">
+        <div className="text-center">
+          <div className="w-10 h-10 mx-auto mb-3 rounded-full bg-slate-800 flex items-center justify-center">
+            <span className="text-slate-400 text-lg">⚪</span>
+          </div>
+          <p className="text-slate-400 text-sm">静态演示模式</p>
+          <p className="text-slate-600 text-xs mt-1">
+            当前为静态演示环境，Dashboard 实时数据不可用。<br />
+            请访问 <span className="text-slate-400">策略中心</span> 或 <span className="text-slate-400">策略市场</span> 浏览模拟回测数据。
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   if (!data) return null;
 
