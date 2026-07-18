@@ -1,0 +1,86 @@
+# ============================================================
+# AI A股量化智能交易平台 — 全栈编排（反向代理同域部署）
+# 用法：
+#   1) cp .env.example .env  && 填入 LLM_API_KEY 等
+#   2) docker compose up -d --build
+#   3) 浏览器访问 http://<服务器IP>  (nginx 已把 /api、/ws 代理到后端)
+# ============================================================
+services:
+  # ---------- 持久化数据库 ----------
+  postgres:
+    image: postgres:16-alpine
+    container_name: quant-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: quant
+      POSTGRES_PASSWORD: quant123
+      POSTGRES_DB: quantdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - quant_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U quant -d quantdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------- 后端 API ----------
+  backend:
+    build: ./backend
+    container_name: quant-backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://quant:quant123@postgres:5432/quantdb
+      # 市场实时模块独立的异步连接池（与主线 ORM 解耦，互不阻塞）
+      MARKET_DB_URL: postgresql+asyncpg://quant:quant123@postgres:5432/quantdb
+      WESTOCK_SCRIPT: /app/westock/index.js
+      NODE_BIN: /usr/bin/node
+      CORS_ALLOW_ORIGINS: "*"
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+      LLM_TIMEOUT: "60"
+      LLM_MAX_TOKENS: "1500"
+      WS_PUSH_INTERVAL: "5"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # 调试用：如需直接访问 API 再放开；正常经 nginx 即可
+    # ports:
+    #   - "8000:8000"
+    networks:
+      - quant-net
+
+  # ---------- 前端 ----------
+  frontend:
+    build: ./frontend
+    container_name: quant-frontend
+    restart: unless-stopped
+    # NEXT_PUBLIC_API_BASE 已在 Dockerfile 构建期设为 ""（相对路径 /api）
+    depends_on:
+      - backend
+    networks:
+      - quant-net
+
+  # ---------- 反向代理（对外唯一入口）----------
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: quant-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - quant-net
+
+volumes:
+  quant_pgdata:
+
+networks:
+  quant-net:
+    driver: bridge

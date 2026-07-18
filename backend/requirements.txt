@@ -1,0 +1,50 @@
+# ============================================================
+# AI A股量化智能交易平台 — 后端依赖
+# ============================================================
+# 【Web 框架】
+fastapi==0.110.0
+uvicorn[standard]==0.30.0
+pydantic==2.8.0
+
+# 【数据处理】
+pandas>=2.2.0
+numpy>=2.0.0
+
+# 【机器学习 — ABu ML 预测（移植自 bbfamily/abu）】
+scikit-learn==1.5.2
+
+# 【科学计算 — 因子分析 IC/ICIR（移植自 hugo2046/QuantsPlaybook，替代 statsmodels）】
+scipy==1.14.1
+
+# 【RSS 解析 — 国际新闻】
+feedparser==6.0.12
+
+# 【网络请求】
+requests==2.31.0          # westock / LLM 调用（已在 venv）
+python-dotenv==1.0.1      # .env 加载（已在 venv）
+
+# 【持久化 — PostgreSQL / SQLite 通用 ORM】
+SQLAlchemy==2.0.38        # 跨库可移植（已在 venv）
+
+# 【实时推送 — WebSocket】
+websockets==12.0          # 已在 venv（16.1 亦可）
+
+# 【真实行情数据源】
+# 主数据源：westock-data（Node 单文件脚本，非 pip 包）
+#   脚本路径见 services/westock_client.py 的 WESTOCK_SCRIPT 默认值
+#   运行需要 Node.js >= 18（本机: /Users/abc123456/.workbuddy/binaries/node/versions/22.22.2/bin/node）
+# 备用数据源（沙箱网络可能受限）：akshare
+akshare==1.16.72
+
+# ============================================================
+# 生产 PostgreSQL 驱动（部署时启用）
+# 本地默认用 SQLite 验证；生产环境在 .env 设置：
+#   DATABASE_URL=postgresql+psycopg://user:pass@host:5432/quantdb
+# Docker 镜像已默认安装此驱动，无需手动 pip install。
+psycopg[binary]==3.2.3
+
+# 【异步 ORM 驱动 — 市场模块独立异步连接池（app/market）】
+# 本地默认 sqlite+aiosqlite；生产指向 postgresql+asyncpg（MARKET_DB_URL）
+aiosqlite==0.20.0
+asyncpg==0.30.0
+# ============================================================

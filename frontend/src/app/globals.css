@@ -1,0 +1,330 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #0d1220;
+  --bg-card: #111827;
+  --bg-card-hover: #1a2235;
+  --bg-elevated: #151d2e;
+  --bg-input: #0b1020;
+  --border-color: #1e2a3d;
+  --border-color-hover: #2a3a52;
+  --text-primary: #e8edf5;
+  --text-secondary: #8b9bb4;
+  --text-muted: #5a6a82;
+  --accent-blue: #3b82f6;
+  --accent-cyan: #22d3ee;
+  --accent-green: #34d399;
+  --accent-red: #f87171;
+  --accent-yellow: #fbbf24;
+  --accent-purple: #a78bfa;
+  --accent-orange: #fb923c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  /* Professional font stack: system UI for body, JetBrains Mono for data */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* JetBrains Mono — 专业等宽字体，用于数据表格 / KPI / 代码 */
+.font-mono,
+.metric-value,
+.data-table td,
+[class*="font-mono"] {
+  font-family: "JetBrains Mono", "SF Mono", "Fira Code", "Cascadia Code", Menlo, Consolas, monospace !important;
+  font-feature-settings: "tnum" 1; /* Tabular Numbers — 数字对齐，专业终端必备 */
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+@layer components {
+  /* ========== Card System ========== */
+  .card {
+    @apply bg-[#111827] border border-[#1e2a3d] rounded-xl transition-all duration-200;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .card:hover {
+    @apply border-[#2a3a52];
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  .card-flat {
+    @apply bg-[#111827] border border-[#1e2a3d] rounded-xl p-4;
+  }
+  .card-elevated {
+    @apply bg-[#151d2e] border border-[#1e2a3d] rounded-xl shadow-lg;
+  }
+
+  /* ========== Metric / KPI ========== */
+  .metric-value {
+    @apply font-mono font-bold text-2xl tracking-tight;
+  }
+  .metric-label {
+    @apply text-xs text-slate-500 mb-1;
+  }
+  .metric-sub {
+    @apply text-xs font-mono mt-0.5;
+  }
+
+  /* ========== Color Helpers ========== */
+  .pos { @apply text-emerald-400; }
+  .neg { @apply text-red-400; }
+  .neutral { @apply text-slate-400; }
+  .pos-bg { @apply bg-emerald-500/10 text-emerald-400; }
+  .neg-bg { @apply bg-red-500/10 text-red-400; }
+  .warn-bg { @apply bg-amber-500/10 text-amber-400; }
+
+  /* ========== Navigation ========== */
+  .nav-link {
+    @apply flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-slate-400 
+           hover:text-slate-200 hover:bg-white/5 transition-all duration-150 cursor-pointer;
+  }
+  .nav-link-active {
+    @apply text-cyan-400 bg-cyan-900/15 border-l-2 border-cyan-500/60;
+  }
+  .top-nav-item {
+    @apply flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium 
+           text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors cursor-pointer;
+  }
+  .top-nav-item-active {
+    @apply text-cyan-400 bg-cyan-900/20;
+  }
+
+  /* ========== Buttons ========== */
+  .btn-primary {
+    @apply px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-sm font-medium 
+           transition-all duration-150 cursor-pointer active:scale-[0.98]
+           shadow-lg shadow-cyan-900/30;
+  }
+  .btn-secondary {
+    @apply px-4 py-2 bg-[#151d2e] hover:bg-[#1e293b] text-slate-300 rounded-lg text-sm font-medium 
+           transition-colors duration-150 cursor-pointer border border-[#1e2a3d];
+  }
+  .btn-danger {
+    @apply px-4 py-2 bg-red-950/40 hover:bg-red-900/50 text-red-400 rounded-lg text-sm font-medium 
+           transition-colors duration-150 cursor-pointer border border-red-900/40;
+  }
+  .btn-success {
+    @apply px-4 py-2 bg-emerald-900/30 hover:bg-emerald-900/50 text-emerald-400 rounded-lg text-sm font-medium 
+           transition-colors duration-150 cursor-pointer border border-emerald-800/30;
+  }
+  .btn-ghost {
+    @apply px-3 py-1.5 text-xs text-slate-400 hover:text-slate-200 hover:bg-white/5 rounded-md 
+           transition-colors cursor-pointer;
+  }
+  .btn-icon {
+    @apply p-1.5 hover:bg-white/5 rounded-lg transition-colors cursor-pointer;
+  }
+
+  /* ========== Badges / Tags ========== */
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium whitespace-nowrap;
+  }
+  .badge-green { @apply bg-emerald-500/10 text-emerald-400 border border-emerald-500/20; }
+  .badge-red { @apply bg-red-500/10 text-red-400 border border-red-500/20; }
+  .badge-blue { @apply bg-blue-500/10 text-blue-400 border border-blue-500/20; }
+  .badge-purple { @apply bg-violet-500/10 text-violet-300 border border-violet-500/20; }
+  .badge-yellow { @apply bg-amber-500/10 text-amber-400 border border-amber-500/20; }
+  .badge-gray { @apply bg-slate-700/40 text-slate-400 border border-slate-600/30; }
+  .badge-cyan { @apply bg-cyan-500/10 text-cyan-400 border border-cyan-500/20; }
+  .badge-orange { @apply bg-orange-500/10 text-orange-400 border border-orange-500/20; }
+  .badge-live {
+    @apply bg-emerald-500/15 text-emerald-300 border border-emerald-500/25;
+  }
+  .badge-running {
+    @apply bg-emerald-500/10 text-emerald-400;
+  }
+  .badge-paused { @apply bg-amber-500/10 text-amber-400; }
+  .badge-archived { @apply bg-slate-600/30 text-slate-500; }
+  .badge-bullish { @apply bg-emerald-500/10 text-emerald-400; }
+  .badge-bearish { @apply bg-red-500/10 text-red-400; }
+  .badge-neutral { @apply bg-slate-500/10 text-slate-400; }
+
+  /* Sentiment score badges (for news) */
+  .sent-pos {
+    @apply inline-flex items-center px-1.5 py-0.5 rounded text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400;
+  }
+  .sent-neg {
+    @apply inline-flex items-center px-1.5 py-0.5 rounded text-xs font-mono font-bold bg-red-500/10 text-red-400;
+  }
+
+  /* Strategy tags */
+  .tag {
+    @apply inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-[#1e2a3d] text-slate-400 border border-[#253247];
+  }
+
+  /* ========== Form Elements ========== */
+  .input-dark {
+    @apply w-full bg-[#0b1020] border border-[#1e2a3d] rounded-lg px-3 py-2 text-sm 
+           text-slate-200 placeholder-slate-600 focus:outline-none focus:border-cyan-500/60 
+           focus:ring-1 focus:ring-cyan-500/20 transition-all font-mono;
+  }
+  /* 通用输入框（与既有 input input-sm 约定对齐，未定义前为浏览器默认样式） */
+  .input {
+    @apply w-full bg-[#0b1020] border border-[#1e2a3d] rounded-lg px-3 py-2 text-sm 
+           text-slate-200 placeholder-slate-600 focus:outline-none focus:border-cyan-500/60 
+           focus:ring-1 focus:ring-cyan-500/20 transition-all;
+  }
+  .input-sm { @apply px-2 py-1 text-xs; }
+  .input-xs { @apply px-1.5 py-0.5 text-xs; }
+
+  /* ========== Tables ========== */
+  .data-table {
+    @apply w-full text-sm;
+  }
+  .data-table th {
+    @apply text-left py-2.5 px-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider border-b border-[#1e2a3d];
+  }
+  .data-table td {
+    @apply py-2.5 px-3 border-b border-[#0f1626] hover:bg-white/[0.02] transition-colors;
+  }
+
+  /* ========== Section Headers ========== */
+  .section-title {
+    @apply text-sm font-semibold text-slate-200;
+  }
+  .section-subtitle {
+    @apply text-xs text-slate-500 mt-0.5;
+  }
+
+  /* ========== Progress bars ========== */
+  .progress-bar {
+    @apply h-1.5 bg-[#1e2a3d] rounded-full overflow-hidden;
+  }
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-500;
+  }
+
+  /* Score bar for dimensions */
+  .score-bar-track {
+    @apply h-1.5 bg-[#1e2a3d] rounded-full overflow-hidden flex-1 max-w-[80px];
+  }
+  .score-bar-fill {
+    @apply h-full rounded-full transition-all duration-700;
+  }
+
+  /* ========== Glow effects ========== */
+  .glow-green { box-shadow: 0 0 12px rgba(52,211,153,0.2); }
+  .glow-red { box-shadow: 0 0 12px rgba(248,113,113,0.2); }
+  .glow-cyan { box-shadow: 0 0 12px rgba(34,211,238,0.2); }
+  .glow-blue { box-shadow: 0 0 12px rgba(59,130,246,0.2); }
+}
+
+/* ========== Animations ========== */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.04) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm;
+}
+.modal-content {
+  @apply bg-[#111827] border border-[#1e2a3d] rounded-2xl shadow-2xl w-full max-w-2xl mx-4 max-h-[85vh] overflow-y-auto;
+}
+
+/* ========== Keyboard Shortcut Badges ========== */
+.kbd {
+  @apply inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono
+         bg-[#0d1220] border border-[#1e2a3d] text-slate-500;
+}
+
+/* ========== Data Density Enhancements ========== */
+.data-dense {
+  @apply text-xs leading-tight;
+}
+.data-dense th {
+  @apply py-1.5 px-2 text-[10px];
+}
+.data-dense td {
+  @apply py-1.5 px-2;
+}
+
+/* ========== StatusBar (bottom) ========== */
+.statusbar {
+  @apply h-7 flex items-center gap-4 px-4 text-[10px] text-slate-600
+         bg-[#060a12] border-t border-[#151d2e] font-mono;
+}
+.statusbar-item {
+  @apply flex items-center gap-1.5;
+}
+.statusbar-sep {
+  @apply w-px h-3 bg-[#1e2a3d];
+}
+
+/* ========== Grid Layout Helper ========== */
+.dashboard-grid {
+  @apply grid gap-4;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+.dashboard-grid-col2 {
+  grid-template-columns: 1fr 1fr;
+}
+.dashboard-grid-col3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 1024px) {
+  .dashboard-grid-col2,
+  .dashboard-grid-col3 {
+    grid-template-columns: 1fr;
+  }
+}
+
