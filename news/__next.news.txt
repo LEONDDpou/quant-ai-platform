@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[39756,["/quant-ai-platform/_next/static/chunks/40bu52sll9_mw.js","/quant-ai-platform/_next/static/chunks/031d4hdncmqdj.js","/quant-ai-platform/_next/static/chunks/3_pb4kpzvf8i_.js"],"default"]
+3:I[37457,["/quant-ai-platform/_next/static/chunks/40bu52sll9_mw.js","/quant-ai-platform/_next/static/chunks/031d4hdncmqdj.js","/quant-ai-platform/_next/static/chunks/3_pb4kpzvf8i_.js"],"default"]
+4:[]
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"HVw3h9R9-aqN9CQatVrfE"}

@@ -1,0 +1,9 @@
+1:"$Sreact.fragment"
+2:I[47257,["/quant-ai-platform/_next/static/chunks/40bu52sll9_mw.js","/quant-ai-platform/_next/static/chunks/031d4hdncmqdj.js","/quant-ai-platform/_next/static/chunks/3_pb4kpzvf8i_.js"],"ClientPageRoot"]
+3:I[42523,["/quant-ai-platform/_next/static/chunks/40bu52sll9_mw.js","/quant-ai-platform/_next/static/chunks/031d4hdncmqdj.js","/quant-ai-platform/_next/static/chunks/3_pb4kpzvf8i_.js","/quant-ai-platform/_next/static/chunks/1a1rxcq44-j40.js","/quant-ai-platform/_next/static/chunks/0rtnpaqv8tkgy.js","/quant-ai-platform/_next/static/chunks/032dumkoz47pl.js"],"default"]
+6:I[97367,["/quant-ai-platform/_next/static/chunks/40bu52sll9_mw.js","/quant-ai-platform/_next/static/chunks/031d4hdncmqdj.js","/quant-ai-platform/_next/static/chunks/3_pb4kpzvf8i_.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/quant-ai-platform/_next/static/chunks/1a1rxcq44-j40.js","async":true}],["$","script","script-1",{"src":"/quant-ai-platform/_next/static/chunks/0rtnpaqv8tkgy.js","async":true}],["$","script","script-2",{"src":"/quant-ai-platform/_next/static/chunks/032dumkoz47pl.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"HVw3h9R9-aqN9CQatVrfE"}
+4:{}
+5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
+8:null

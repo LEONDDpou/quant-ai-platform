@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[97367,["/quant-ai-platform/_next/static/chunks/40bu52sll9_mw.js","/quant-ai-platform/_next/static/chunks/031d4hdncmqdj.js","/quant-ai-platform/_next/static/chunks/3_pb4kpzvf8i_.js"],"ViewportBoundary"]
+3:I[97367,["/quant-ai-platform/_next/static/chunks/40bu52sll9_mw.js","/quant-ai-platform/_next/static/chunks/031d4hdncmqdj.js","/quant-ai-platform/_next/static/chunks/3_pb4kpzvf8i_.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+0:{"rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"AI A股量化智能交易平台"}],["$","meta","1",{"name":"description","content":"面向中国A股市场的AI量化交易系统 — 策略回测、智能选股、自动交易"}]]}]}]}],null]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"HVw3h9R9-aqN9CQatVrfE"}
