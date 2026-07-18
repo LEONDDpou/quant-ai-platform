@@ -37,3 +37,8 @@ backtest_results/
 .DS_Store
 .idea/
 .vscode/
+
+# ===== Database artifacts =====
+*.db-journal
+*.db-wal
+*.db-shm
