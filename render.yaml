@@ -1,0 +1,27 @@
+# ============================================================
+# AI A股量化智能交易平台 — Render 一键部署配置
+# 
+# 用法：
+#   1) 打开 https://dashboard.render.com/blueprint
+#   2) 选择 LEONDDpou/quant-ai-platform 仓库
+#   3) Render 自动识别并部署 （构建 < 5 分钟）
+#   4) 部署成功后拿到后端 URL（如 https://quant-backend-xxx.onrender.com）
+#   5) 通知我 → 我重新构建前端并推送至 GitHub Pages
+#   6) 即可在 https://leonddpou.github.io/quant-ai-platform/ 看到实时数据
+# ============================================================
+
+services:
+  # ---------- 后端（FastAPI + westock 实时数据）----------
+  - type: web
+    name: quant-backend
+    runtime: docker
+    region: singapore             # 新加坡节点，国内延迟较低
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    envVars:
+      - key: CORS_ALLOW_ORIGINS
+        value: "*"                # 允许任意前端域名跨域
+      - key: DATA_CACHE_TTL
+        value: "30"               # westock 数据缓存秒数
+    healthCheckPath: /openapi.json
+    plan: free                    # 免费版（750h/月，无请求时 15 分钟休眠）
